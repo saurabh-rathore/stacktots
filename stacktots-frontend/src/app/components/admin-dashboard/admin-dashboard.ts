@@ -15,6 +15,7 @@ export class AdminDashboardComponent implements OnInit {
   contentForm: FormGroup;
   isEditing = false;
   currentContentId: number | null = null;
+  selectedFile: File | null = null;
 
   constructor(
     private contentService: ContentService,
@@ -23,8 +24,7 @@ export class AdminDashboardComponent implements OnInit {
     this.contentForm = this.fb.group({
       title: ['', Validators.required],
       description: [''],
-      type: ['', Validators.required],
-      url: ['']
+      type: ['', Validators.required]
     });
   }
 
@@ -43,29 +43,49 @@ export class AdminDashboardComponent implements OnInit {
     });
   }
 
+  onFileSelected(event: any): void {
+    this.selectedFile = event.target.files[0];
+  }
+
   onSubmit(): void {
     if (this.contentForm.valid) {
-      if (this.isEditing) {
-        this.contentService.updateContent(this.currentContentId!, this.contentForm.value).subscribe({
-          next: () => {
-            this.loadContent();
-            this.resetForm();
+      if (this.selectedFile) {
+        this.contentService.uploadFile(this.selectedFile).subscribe({
+          next: (response) => {
+            const contentData = { ...this.contentForm.value, filePath: response.filePath };
+            this.saveContent(contentData);
           },
           error: (error) => {
-            console.error('Failed to update content', error);
+            console.error('Failed to upload file', error);
           }
         });
       } else {
-        this.contentService.createContent(this.contentForm.value).subscribe({
-          next: () => {
-            this.loadContent();
-            this.resetForm();
-          },
-          error: (error) => {
-            console.error('Failed to create content', error);
-          }
-        });
+        this.saveContent(this.contentForm.value);
       }
+    }
+  }
+
+  saveContent(contentData: any): void {
+    if (this.isEditing) {
+      this.contentService.updateContent(this.currentContentId!, contentData).subscribe({
+        next: () => {
+          this.loadContent();
+          this.resetForm();
+        },
+        error: (error) => {
+          console.error('Failed to update content', error);
+        }
+      });
+    } else {
+      this.contentService.createContent(contentData).subscribe({
+        next: () => {
+          this.loadContent();
+          this.resetForm();
+        },
+        error: (error) => {
+          console.error('Failed to create content', error);
+        }
+      });
     }
   }
 
@@ -89,6 +109,7 @@ export class AdminDashboardComponent implements OnInit {
   resetForm(): void {
     this.isEditing = false;
     this.currentContentId = null;
+    this.selectedFile = null;
     this.contentForm.reset();
   }
 }

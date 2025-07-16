@@ -18,6 +18,10 @@ app.use('/api/rewards', rewardsRoutes);
 const subscriptionRoutes = require('./routes/subscriptions');
 app.use('/api/subscriptions', subscriptionRoutes);
 
+const uploadRoutes = require('./routes/uploads');
+app.use('/api/upload', uploadRoutes);
+app.use('/uploads', express.static('uploads'));
+
 app.get('/api/parental-controls', verifyToken, (req, res) => {
   db.query('SELECT * FROM parental_controls WHERE user_id = ?', [req.userId], (err, results) => {
     if (err) {

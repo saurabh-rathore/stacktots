@@ -15,8 +15,8 @@ router.get('/', verifyToken, (req, res) => {
 
 // Create content
 router.post('/', verifyToken, (req, res) => {
-  const { title, description, type, url } = req.body;
-  db.query('INSERT INTO content (title, description, type, url) VALUES (?, ?, ?, ?)', [title, description, type, url], (err, result) => {
+  const { title, description, type, filePath } = req.body;
+  db.query('INSERT INTO content (title, description, type, url) VALUES (?, ?, ?, ?)', [title, description, type, filePath], (err, result) => {
     if (err) {
       return res.status(500).json({ error: err });
     }
@@ -26,8 +26,8 @@ router.post('/', verifyToken, (req, res) => {
 
 // Update content
 router.put('/:id', verifyToken, (req, res) => {
-  const { title, description, type, url } = req.body;
-  db.query('UPDATE content SET title = ?, description = ?, type = ?, url = ? WHERE id = ?', [title, description, type, url, req.params.id], (err, result) => {
+  const { title, description, type, filePath } = req.body;
+  db.query('UPDATE content SET title = ?, description = ?, type = ?, url = ? WHERE id = ?', [title, description, type, filePath, req.params.id], (err, result) => {
     if (err) {
       return res.status(500).json({ error: err });
     }

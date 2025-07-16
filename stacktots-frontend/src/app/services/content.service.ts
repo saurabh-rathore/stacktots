@@ -8,13 +8,13 @@ import { Observable } from 'rxjs';
 export class ContentService {
 
   private apiUrl = 'http://localhost:3000/api/content';
+  private uploadUrl = 'http://localhost:3000/api/upload';
 
   constructor(private http: HttpClient) { }
 
   private getAuthHeaders(): HttpHeaders {
     const token = localStorage.getItem('token');
     return new HttpHeaders({
-      'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     });
   }
@@ -33,5 +33,11 @@ export class ContentService {
 
   deleteContent(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`, { headers: this.getAuthHeaders() });
+  }
+
+  uploadFile(file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('contentFile', file);
+    return this.http.post(this.uploadUrl, formData, { headers: this.getAuthHeaders() });
   }
 }

@@ -15,7 +15,8 @@
     "mysql": "^2.18.1",
     "bcrypt": "^5.0.1",
     "jsonwebtoken": "^8.5.1",
-    "stripe": "^8.176.0"
+    "stripe": "^8.176.0",
+    "multer": "^1.4.3"
   },
   "devDependencies": {
     "jest": "^27.0.6",
