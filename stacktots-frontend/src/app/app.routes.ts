@@ -6,6 +6,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ParentalDashboardComponent } from './components/parental-dashboard/parental-dashboard.component';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { RewardsComponent } from './components/rewards/rewards.component';
+import { SubscriptionComponent } from './components/subscription/subscription.component';
 
 export const routes: Routes = [
     { path: '', component: LandingComponent },
@@ -14,5 +15,6 @@ export const routes: Routes = [
     { path: 'dashboard', component: DashboardComponent },
     { path: 'parental-dashboard', component: ParentalDashboardComponent },
     { path: 'admin-dashboard', component: AdminDashboardComponent },
-    { path: 'rewards', component: RewardsComponent }
+    { path: 'rewards', component: RewardsComponent },
+    { path: 'subscription', component: SubscriptionComponent }
 ];

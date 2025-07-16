@@ -4,6 +4,7 @@ import 'package:stacktots_mobile/screens/home_screen.dart';
 import 'package:stacktots_mobile/screens/login_screen.dart';
 import 'package:stacktots_mobile/screens/register_screen.dart';
 import 'package:stacktots_mobile/screens/rewards_screen.dart';
+import 'package:stacktots_mobile/screens/subscription_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
         '/register': (context) => const RegisterScreen(),
         '/dashboard': (context) => const DashboardScreen(),
         '/rewards': (context) => const RewardsScreen(),
+        '/subscription': (context) => const SubscriptionScreen(),
       },
     );
   }

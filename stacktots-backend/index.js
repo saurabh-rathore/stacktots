@@ -55,6 +55,9 @@ app.use('/api/content', contentRoutes);
 const rewardsRoutes = require('./routes/rewards');
 app.use('/api/rewards', rewardsRoutes);
 
+const subscriptionRoutes = require('./routes/subscriptions');
+app.use('/api/subscriptions', subscriptionRoutes);
+
 app.get('/api/parental-controls', (req, res) => {
   // TODO: Fetch settings from the database
   const settings = {

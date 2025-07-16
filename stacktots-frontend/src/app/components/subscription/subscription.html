@@ -1,0 +1,16 @@
+<div class="subscription-container">
+  <h2>Subscription Plans</h2>
+
+  <div class="plans-grid">
+    <div *ngFor="let plan of plans" class="plan-card" (click)="selectPlan(plan)" [class.selected]="plan === selectedPlan">
+      <h4>{{ plan.name }}</h4>
+      <p>{{ plan.price | currency }} / {{ plan.duration }}</p>
+    </div>
+  </div>
+
+  <div *ngIf="selectedPlan">
+    <h3>Subscribe to {{ selectedPlan.name }}</h3>
+    <div #cardElement class="card-element"></div>
+    <button (click)="subscribe()">Subscribe</button>
+  </div>
+</div>
