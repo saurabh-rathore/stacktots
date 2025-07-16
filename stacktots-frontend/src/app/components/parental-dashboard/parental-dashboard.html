@@ -1,9 +1,14 @@
 <div class="parental-dashboard-container">
   <h2>Parental Dashboard</h2>
   <form [formGroup]="settingsForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="contentAccess">Content Access</label>
-      <input type="text" id="contentAccess" formControlName="contentAccess">
+    <h3>Allowed Content Types</h3>
+    <div formArrayName="allowedContentTypes">
+      <div *ngFor="let type of contentTypes; let i = index">
+        <label>
+          <input type="checkbox" [formControlName]="i">
+          {{ type }}
+        </label>
+      </div>
     </div>
     <button type="submit">Save Settings</button>
   </form>

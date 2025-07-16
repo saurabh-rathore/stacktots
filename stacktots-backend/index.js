@@ -58,18 +58,27 @@ app.use('/api/rewards', rewardsRoutes);
 const subscriptionRoutes = require('./routes/subscriptions');
 app.use('/api/subscriptions', subscriptionRoutes);
 
-app.get('/api/parental-controls', (req, res) => {
-  // TODO: Fetch settings from the database
-  const settings = {
-    contentAccess: 'all'
-  };
-  res.json(settings);
+app.get('/api/parental-controls', verifyToken, (req, res) => {
+  db.query('SELECT * FROM parental_controls WHERE user_id = ?', [req.userId], (err, results) => {
+    if (err) {
+      return res.status(500).json({ error: err });
+    }
+    res.json(results[0] || {});
+  });
 });
 
-app.post('/api/parental-controls', (req, res) => {
-  const { contentAccess } = req.body;
-  // TODO: Update settings in the database
-  res.json({ message: 'Settings updated successfully' });
+app.post('/api/parental-controls', verifyToken, (req, res) => {
+  const { content_access } = req.body;
+  db.query(
+    'INSERT INTO parental_controls (user_id, content_access) VALUES (?, ?) ON DUPLICATE KEY UPDATE content_access = ?',
+    [req.userId, content_access, content_access],
+    (err, result) => {
+      if (err) {
+        return res.status(500).json({ error: err });
+      }
+      res.json({ message: 'Settings updated successfully' });
+    }
+  );
 });
 
 app.listen(port, () => {
