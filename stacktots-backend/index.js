@@ -52,6 +52,9 @@ app.post('/api/register', (req, res) => {
 const contentRoutes = require('./routes/content');
 app.use('/api/content', contentRoutes);
 
+const rewardsRoutes = require('./routes/rewards');
+app.use('/api/rewards', rewardsRoutes);
+
 app.get('/api/parental-controls', (req, res) => {
   // TODO: Fetch settings from the database
   const settings = {

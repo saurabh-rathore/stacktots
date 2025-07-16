@@ -1,0 +1,13 @@
+<div class="rewards-container">
+  <h2>Rewards</h2>
+
+  <h3>Your Points: {{ points }}</h3>
+
+  <div class="rewards-grid">
+    <div *ngFor="let reward of rewards" class="reward-card">
+      <h4>{{ reward.name }}</h4>
+      <p>Cost: {{ reward.points_cost }} points</p>
+      <button (click)="redeemReward(reward.id)" [disabled]="points < reward.points_cost">Redeem</button>
+    </div>
+  </div>
+</div>
