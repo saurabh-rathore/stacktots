@@ -1,0 +1,9 @@
+<div class="dashboard-container">
+  <h2>Dashboard</h2>
+  <div class="content-grid">
+    <div *ngFor="let item of content" class="content-item">
+      <h3>{{ item.title }}</h3>
+      <p>{{ item.description }}</p>
+    </div>
+  </div>
+</div>

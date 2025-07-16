@@ -1,0 +1,10 @@
+<div class="parental-dashboard-container">
+  <h2>Parental Dashboard</h2>
+  <form [formGroup]="settingsForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="contentAccess">Content Access</label>
+      <input type="text" id="contentAccess" formControlName="contentAccess">
+    </div>
+    <button type="submit">Save Settings</button>
+  </form>
+</div>
