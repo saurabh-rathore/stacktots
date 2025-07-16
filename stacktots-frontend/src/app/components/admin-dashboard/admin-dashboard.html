@@ -1,0 +1,46 @@
+<div class="admin-dashboard-container">
+  <h2>Admin Dashboard</h2>
+
+  <h3>Content Management</h3>
+
+  <form [formGroup]="contentForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input type="text" id="title" formControlName="title" required>
+    </div>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea id="description" formControlName="description"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="type">Type</label>
+      <input type="text" id="type" formControlName="type" required>
+    </div>
+    <div class="form-group">
+      <label for="url">URL</label>
+      <input type="text" id="url" formControlName="url">
+    </div>
+    <button type="submit">{{ isEditing ? 'Update' : 'Create' }}</button>
+    <button type="button" (click)="resetForm()" *ngIf="isEditing">Cancel</button>
+  </form>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Type</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of content">
+        <td>{{ item.title }}</td>
+        <td>{{ item.type }}</td>
+        <td>
+          <button (click)="editContent(item)">Edit</button>
+          <button (click)="deleteContent(item.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

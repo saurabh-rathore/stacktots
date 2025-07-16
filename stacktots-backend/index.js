@@ -49,28 +49,8 @@ app.post('/api/register', (req, res) => {
   });
 });
 
-const verifyToken = (req, res, next) => {
-  const token = req.headers['authorization'];
-  if (!token) {
-    return res.status(403).json({ message: 'No token provided' });
-  }
-  jwt.verify(token.split(' ')[1], 'your_jwt_secret', (err, decoded) => {
-    if (err) {
-      return res.status(500).json({ message: 'Failed to authenticate token' });
-    }
-    req.userId = decoded.id;
-    next();
-  });
-};
-
-app.get('/api/content', verifyToken, (req, res) => {
-  db.query('SELECT * FROM content', (err, results) => {
-    if (err) {
-      return res.status(500).json({ error: err });
-    }
-    res.json(results);
-  });
-});
+const contentRoutes = require('./routes/content');
+app.use('/api/content', contentRoutes);
 
 app.get('/api/parental-controls', (req, res) => {
   // TODO: Fetch settings from the database

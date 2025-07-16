@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stacktots_mobile/screens/dashboard_screen.dart';
 import 'package:stacktots_mobile/screens/home_screen.dart';
 import 'package:stacktots_mobile/screens/login_screen.dart';
 import 'package:stacktots_mobile/screens/register_screen.dart';
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => const HomeScreen(),
         '/login': (context) => const LoginScreen(),
         '/register': (context) => const RegisterScreen(),
+        '/dashboard': (context) => const DashboardScreen(),
       },
     );
   }
