@@ -8,24 +8,68 @@ app.use(bodyParser.json());
 
 app.post('/api/login', (req, res) => {
   const { email, password } = req.body;
-  // TODO: Implement login logic
-  res.json({ message: 'Login successful' });
+  db.query('SELECT * FROM users WHERE email = ?', [email], (err, results) => {
+    if (err) {
+      return res.status(500).json({ error: err });
+    }
+    if (results.length === 0) {
+      return res.status(401).json({ message: 'Invalid credentials' });
+    }
+    const user = results[0];
+    bcrypt.compare(password, user.password, (err, isMatch) => {
+      if (err) {
+        return res.status(500).json({ error: err });
+      }
+      if (isMatch) {
+        const token = jwt.sign({ id: user.id }, 'your_jwt_secret', { expiresIn: '1h' });
+        res.json({ token });
+      } else {
+        res.status(401).json({ message: 'Invalid credentials' });
+      }
+    });
+  });
 });
+
+const db = require('./db');
+const bcrypt = require('bcrypt');
 
 app.post('/api/register', (req, res) => {
   const { name, email, password } = req.body;
-  // TODO: Implement registration logic
-  res.json({ message: 'Registration successful' });
+  const saltRounds = 10;
+  bcrypt.hash(password, saltRounds, (err, hash) => {
+    if (err) {
+      return res.status(500).json({ error: err });
+    }
+    db.query('INSERT INTO users (name, email, password) VALUES (?, ?, ?)', [name, email, hash], (err, result) => {
+      if (err) {
+        return res.status(500).json({ error: err });
+      }
+      res.json({ message: 'Registration successful' });
+    });
+  });
 });
 
-app.get('/api/content', (req, res) => {
-  // TODO: Fetch content from the database
-  const content = [
-    { id: 1, title: 'Story 1', description: 'This is a story', type: 'story' },
-    { id: 2, title: 'Game 1', description: 'This is a game', type: 'game' },
-    { id: 3, title: 'Video 1', description: 'This is a video', type: 'video' }
-  ];
-  res.json(content);
+const verifyToken = (req, res, next) => {
+  const token = req.headers['authorization'];
+  if (!token) {
+    return res.status(403).json({ message: 'No token provided' });
+  }
+  jwt.verify(token.split(' ')[1], 'your_jwt_secret', (err, decoded) => {
+    if (err) {
+      return res.status(500).json({ message: 'Failed to authenticate token' });
+    }
+    req.userId = decoded.id;
+    next();
+  });
+};
+
+app.get('/api/content', verifyToken, (req, res) => {
+  db.query('SELECT * FROM content', (err, results) => {
+    if (err) {
+      return res.status(500).json({ error: err });
+    }
+    res.json(results);
+  });
 });
 
 app.get('/api/parental-controls', (req, res) => {
