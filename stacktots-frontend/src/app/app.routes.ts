@@ -9,6 +9,8 @@ import { RewardsComponent } from './components/rewards/rewards.component';
 import { SubscriptionComponent } from './components/subscription/subscription.component';
 import { ConfirmEmailComponent } from './components/confirm-email/confirm-email.component';
 import { EmailVerifiedComponent } from './components/email-verified/email-verified.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 
 export const routes: Routes = [
     { path: '', component: LandingComponent },
@@ -20,5 +22,7 @@ export const routes: Routes = [
     { path: 'rewards', component: RewardsComponent },
     { path: 'subscription', component: SubscriptionComponent },
     { path: 'confirm-email', component: ConfirmEmailComponent },
-    { path: 'verify-email', component: EmailVerifiedComponent }
+    { path: 'verify-email', component: EmailVerifiedComponent },
+    { path: 'forgot-password', component: ForgotPasswordComponent },
+    { path: 'reset-password', component: ResetPasswordComponent }
 ];

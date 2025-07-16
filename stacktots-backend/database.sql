@@ -10,6 +10,8 @@ CREATE TABLE IF NOT EXISTS users (
   points INT DEFAULT 0,
   is_verified BOOLEAN DEFAULT false,
   verification_token VARCHAR(255),
+  password_reset_token VARCHAR(255),
+  password_reset_expires BIGINT,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

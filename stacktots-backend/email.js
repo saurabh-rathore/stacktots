@@ -20,6 +20,17 @@ const sendVerificationEmail = async (email, token) => {
   });
 };
 
+const sendPasswordResetEmail = async (email, token) => {
+  const resetUrl = `http://localhost:4200/reset-password?token=${token}`;
+  await transporter.sendMail({
+    from: '"StackTots" <no-reply@stacktots.com>',
+    to: email,
+    subject: 'Reset your password',
+    html: `Please click this link to reset your password: <a href="${resetUrl}">${resetUrl}</a>`,
+  });
+};
+
 module.exports = {
   sendVerificationEmail,
+  sendPasswordResetEmail,
 };
