@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ContentService } from '../../services/content.service';
+import { TtsService } from '../../services/tts.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -14,7 +15,10 @@ export class DashboardComponent implements OnInit {
   games: any[] = [];
   videos: any[] = [];
 
-  constructor(private contentService: ContentService) { }
+  constructor(
+    private contentService: ContentService,
+    private ttsService: TtsService
+  ) { }
 
   ngOnInit(): void {
     this.contentService.getContent().subscribe({
@@ -25,6 +29,18 @@ export class DashboardComponent implements OnInit {
       },
       error: (error) => {
         console.error('Failed to get content', error);
+      }
+    });
+  }
+
+  listen(id: number): void {
+    this.ttsService.getAudio(id).subscribe({
+      next: (response) => {
+        const audio = new Audio(URL.createObjectURL(response));
+        audio.play();
+      },
+      error: (error) => {
+        console.error('Failed to get audio', error);
       }
     });
   }

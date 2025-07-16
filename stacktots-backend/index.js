@@ -22,6 +22,9 @@ const uploadRoutes = require('./routes/uploads');
 app.use('/api/upload', uploadRoutes);
 app.use('/uploads', express.static('uploads'));
 
+const ttsRoutes = require('./routes/tts');
+app.use('/api/tts', ttsRoutes);
+
 app.get('/api/parental-controls', verifyToken, (req, res) => {
   db.query('SELECT * FROM parental_controls WHERE user_id = ?', [req.userId], (err, results) => {
     if (err) {

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stacktots_mobile/services/content_service.dart';
+import 'package:stacktots_mobile/services/tts_service.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({Key? key}) : super(key: key);
@@ -10,6 +12,8 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen> {
   final ContentService _contentService = ContentService();
+  final TtsService _ttsService = TtsService();
+  final AudioPlayer _audioPlayer = AudioPlayer();
   late Future<List<dynamic>> _content;
 
   @override
@@ -76,6 +80,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   children: <Widget>[
                     Image.network(item['url'], height: 100),
                     Text(item['title']),
+                    ElevatedButton(
+                      onPressed: () => _listen(item['id']),
+                      child: const Text('Listen'),
+                    ),
                   ],
                 ),
               );
@@ -84,5 +92,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ),
       ],
     );
+  }
+
+  void _listen(int id) async {
+    try {
+      final url = await _ttsService.getAudioUrl(id);
+      await _audioPlayer.play(url);
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(e.toString())),
+      );
+    }
   }
 }
