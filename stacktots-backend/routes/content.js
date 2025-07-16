@@ -13,16 +13,33 @@ router.get('/', verifyToken, (req, res) => {
   });
 });
 
+const { body, validationResult } = require('express-validator');
+
 // Create content
-router.post('/', verifyToken, (req, res) => {
-  const { title, description, type, filePath } = req.body;
-  db.query('INSERT INTO content (title, description, type, url) VALUES (?, ?, ?, ?)', [title, description, type, filePath], (err, result) => {
-    if (err) {
-      return res.status(500).json({ error: err });
+router.post(
+  '/',
+  verifyToken,
+  [
+    body('title').notEmpty().trim().escape(),
+    body('description').trim().escape(),
+    body('type').notEmpty().trim().escape(),
+    body('filePath').notEmpty(),
+  ],
+  (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
     }
-    res.json({ message: 'Content created successfully', id: result.insertId });
-  });
-});
+
+    const { title, description, type, filePath } = req.body;
+    db.query('INSERT INTO content (title, description, type, url) VALUES (?, ?, ?, ?)', [title, description, type, filePath], (err, result) => {
+      if (err) {
+        return res.status(500).json({ error: err });
+      }
+      res.json({ message: 'Content created successfully', id: result.insertId });
+    });
+  }
+);
 
 // Update content
 router.put('/:id', verifyToken, (req, res) => {

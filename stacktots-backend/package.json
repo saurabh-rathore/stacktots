@@ -17,7 +17,8 @@
     "jsonwebtoken": "^8.5.1",
     "stripe": "^8.176.0",
     "multer": "^1.4.3",
-    "nodemailer": "^6.6.3"
+    "nodemailer": "^6.6.3",
+    "express-validator": "^6.12.1"
   },
   "devDependencies": {
     "jest": "^27.0.6",

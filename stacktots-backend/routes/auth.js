@@ -5,13 +5,26 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const { sendVerificationEmail, sendPasswordResetEmail } = require('../email');
+const { body, validationResult } = require('express-validator');
 
-router.post('/register', (req, res) => {
-  const { name, email, password } = req.body;
-  const saltRounds = 10;
-  const verificationToken = crypto.randomBytes(20).toString('hex');
+router.post(
+  '/register',
+  [
+    body('name').notEmpty().trim().escape(),
+    body('email').isEmail().normalizeEmail(),
+    body('password').isLength({ min: 8 }),
+  ],
+  (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
 
-  bcrypt.hash(password, saltRounds, (err, hash) => {
+    const { name, email, password } = req.body;
+    const saltRounds = 10;
+    const verificationToken = crypto.randomBytes(20).toString('hex');
+
+    bcrypt.hash(password, saltRounds, (err, hash) => {
     if (err) {
       return res.status(500).json({ error: err });
     }
@@ -52,9 +65,19 @@ router.get('/verify-email', (req, res) => {
   });
 });
 
-router.post('/forgot-password', (req, res) => {
-  const { email } = req.body;
-  db.query('SELECT * FROM users WHERE email = ?', [email], async (err, results) => {
+router.post(
+  '/forgot-password',
+  [
+    body('email').isEmail().normalizeEmail(),
+  ],
+  (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    const { email } = req.body;
+    db.query('SELECT * FROM users WHERE email = ?', [email], async (err, results) => {
     if (err) {
       return res.status(500).json({ error: err });
     }
@@ -82,9 +105,20 @@ router.post('/forgot-password', (req, res) => {
   });
 });
 
-router.post('/reset-password', (req, res) => {
-  const { token, password } = req.body;
-  db.query(
+router.post(
+  '/reset-password',
+  [
+    body('token').notEmpty(),
+    body('password').isLength({ min: 8 }),
+  ],
+  (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    const { token, password } = req.body;
+    db.query(
     'SELECT * FROM users WHERE password_reset_token = ? AND password_reset_expires > ?',
     [token, Date.now()],
     (err, results) => {
@@ -115,9 +149,20 @@ router.post('/reset-password', (req, res) => {
   );
 });
 
-router.post('/login', (req, res) => {
-  const { email, password } = req.body;
-  db.query('SELECT * FROM users WHERE email = ?', [email], (err, results) => {
+router.post(
+  '/login',
+  [
+    body('email').isEmail().normalizeEmail(),
+    body('password').notEmpty(),
+  ],
+  (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    const { email, password } = req.body;
+    db.query('SELECT * FROM users WHERE email = ?', [email], (err, results) => {
     if (err) {
       return res.status(500).json({ error: err });
     }
