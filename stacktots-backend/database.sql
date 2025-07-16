@@ -8,6 +8,8 @@ CREATE TABLE IF NOT EXISTS users (
   email VARCHAR(255) NOT NULL UNIQUE,
   password VARCHAR(255) NOT NULL,
   points INT DEFAULT 0,
+  is_verified BOOLEAN DEFAULT false,
+  verification_token VARCHAR(255),
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

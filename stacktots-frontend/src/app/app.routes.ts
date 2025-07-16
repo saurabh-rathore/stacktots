@@ -7,6 +7,8 @@ import { ParentalDashboardComponent } from './components/parental-dashboard/pare
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { RewardsComponent } from './components/rewards/rewards.component';
 import { SubscriptionComponent } from './components/subscription/subscription.component';
+import { ConfirmEmailComponent } from './components/confirm-email/confirm-email.component';
+import { EmailVerifiedComponent } from './components/email-verified/email-verified.component';
 
 export const routes: Routes = [
     { path: '', component: LandingComponent },
@@ -16,5 +18,7 @@ export const routes: Routes = [
     { path: 'parental-dashboard', component: ParentalDashboardComponent },
     { path: 'admin-dashboard', component: AdminDashboardComponent },
     { path: 'rewards', component: RewardsComponent },
-    { path: 'subscription', component: SubscriptionComponent }
+    { path: 'subscription', component: SubscriptionComponent },
+    { path: 'confirm-email', component: ConfirmEmailComponent },
+    { path: 'verify-email', component: EmailVerifiedComponent }
 ];

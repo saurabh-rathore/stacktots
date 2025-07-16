@@ -18,4 +18,8 @@ export class AuthService {
   register(user: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/register`, user);
   }
+
+  verifyEmail(token: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/verify-email?token=${token}`);
+  }
 }
