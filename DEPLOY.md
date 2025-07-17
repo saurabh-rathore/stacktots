@@ -217,7 +217,32 @@ To handle a high volume of traffic, you can set up a load balancer to distribute
     sudo systemctl restart nginx
     ```
 
-## 5. (Optional) Using Docker
+## 5. Setting Up HTTPS with Let's Encrypt
+
+It is highly recommended to use HTTPS to encrypt the traffic between the client and the server. You can get a free SSL certificate from Let's Encrypt.
+
+1.  Install Certbot:
+
+    ```bash
+    sudo apt-get update
+    sudo apt-get install certbot python3-certbot-nginx
+    ```
+
+2.  Obtain an SSL certificate:
+
+    ```bash
+    sudo certbot --nginx -d your-domain.com
+    ```
+
+    Certbot will automatically update your Nginx configuration to use the SSL certificate and set up automatic renewal.
+
+3.  Verify that the renewal process is working:
+
+    ```bash
+    sudo certbot renew --dry-run
+    ```
+
+## 6. (Optional) Using Docker
 
 You can also use Docker to containerize the frontend and backend applications.
 
