@@ -293,7 +293,37 @@ The frontend uses Sentry for error tracking. To set up Sentry, you need to:
 2.  Get your DSN from the project settings.
 3.  Replace the placeholder DSN in `stacktots-frontend/src/main.ts` with your actual DSN.
 
-## 8. (Optional) Using Docker
+## 8. Database Backups
+
+It is crucial to set up regular backups of your database to prevent data loss.
+
+1.  **Create a backup directory:**
+
+    ```bash
+    mkdir /path/to/your/backups
+    ```
+
+2.  **Make the backup script executable:**
+
+    ```bash
+    chmod +x stacktots-backend/backup.sh
+    ```
+
+3.  **Set up a cron job:**
+
+    Open the crontab file:
+
+    ```bash
+    crontab -e
+    ```
+
+    Add the following line to run the backup script every day at midnight:
+
+    ```
+    0 0 * * * /path/to/your/stacktots-backend/backup.sh
+    ```
+
+## 9. (Optional) Using Docker
 
 You can also use Docker to containerize the frontend and backend applications.
 
