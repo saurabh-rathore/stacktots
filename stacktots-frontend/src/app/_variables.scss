@@ -1,0 +1,28 @@
+// Colors
+$primary-color: #4a90e2;
+$secondary-color: #f5a623;
+$background-color: #f8f9fa;
+$text-color: #343a40;
+$white: #ffffff;
+
+// Typography
+$font-family: 'Roboto', sans-serif;
+$font-size-base: 16px;
+$font-size-lg: 1.25rem;
+$font-size-sm: 0.875rem;
+
+// Spacing
+$spacing-base: 1rem;
+$spacing-lg: 1.5rem;
+$spacing-sm: 0.5rem;
+
+// Borders
+$border-radius: 0.25rem;
+$border-color: #ced4da;
+
+// Forms
+$input-bg: $white;
+$input-border-color: $border-color;
+$input-focus-bg: $white;
+$input-focus-border-color: lighten($primary-color, 25%);
+$input-focus-box-shadow: 0 0 0 0.2rem rgba($primary-color, 0.25);

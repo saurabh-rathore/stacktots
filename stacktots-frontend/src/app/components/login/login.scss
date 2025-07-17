@@ -1,0 +1,63 @@
+@import '../../variables';
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: $spacing-lg;
+
+  form {
+    background-color: $white;
+    border-radius: $border-radius;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: $spacing-lg;
+    width: 100%;
+    max-width: 400px;
+  }
+
+  h2 {
+    text-align: center;
+    margin-bottom: $spacing-lg;
+  }
+
+  .form-group {
+    margin-bottom: $spacing-base;
+  }
+
+  label {
+    display: block;
+    margin-bottom: $spacing-sm;
+  }
+
+  input {
+    width: 100%;
+    padding: $spacing-sm;
+    background-color: $input-bg;
+    border: 1px solid $input-border-color;
+    border-radius: $border-radius;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+
+    &:focus {
+      background-color: $input-focus-bg;
+      border-color: $input-focus-border-color;
+      outline: 0;
+      box-shadow: $input-focus-box-shadow;
+    }
+  }
+
+  button {
+    width: 100%;
+    padding: $spacing-sm;
+    background-color: $primary-color;
+    color: $white;
+    border: none;
+    border-radius: $border-radius;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    &:hover {
+      background-color: darken($primary-color, 10%);
+    }
+  }
+}

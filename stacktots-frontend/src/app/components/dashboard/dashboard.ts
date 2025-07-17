@@ -2,13 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { ContentService } from '../../services/content.service';
 import { TtsService } from '../../services/tts.service';
 import { CommonModule } from '@angular/common';
+import { fadeInAnimation } from '../../animations';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.html',
   styleUrls: ['./dashboard.scss'],
   standalone: true,
-  imports: [CommonModule]
+  imports: [CommonModule],
+  animations: [fadeInAnimation]
 })
 export class DashboardComponent implements OnInit {
   stories: any[] = [];
