@@ -23,3 +23,49 @@ INSERT INTO rewards (name, points_cost) VALUES
 ('Free 1-day subscription', 100),
 ('Free 1-week subscription', 500),
 ('Unlock a special character', 200);
+
+-- Quizzes
+INSERT INTO content (title, description, type, data) VALUES
+('Animal Quiz', 'Test your knowledge of animals.', 'quiz', '{
+  "questions": [
+    {
+      "question": "What is the largest land animal?",
+      "options": ["Elephant", "Giraffe", "Hippo"],
+      "answer": "Elephant"
+    },
+    {
+      "question": "Which bird can fly backwards?",
+      "options": ["Sparrow", "Hummingbird", "Eagle"],
+      "answer": "Hummingbird"
+    }
+  ]
+}'),
+('Math Quiz', 'Solve these simple math problems.', 'quiz', '{
+  "questions": [
+    {
+      "question": "What is 2 + 2?",
+      "options": ["3", "4", "5"],
+      "answer": "4"
+    },
+    {
+      "question": "What is 10 - 5?",
+      "options": ["5", "6", "7"],
+      "answer": "5"
+    }
+  ]
+}');
+
+-- Puzzles
+INSERT INTO content (title, description, type, data) VALUES
+('Jigsaw Puzzle', 'Put the pieces together to reveal the image.', 'puzzle', '{
+  "image": "https://picsum.photos/400/400?random=10"
+}'),
+('Word Search', 'Find the hidden words in the grid.', 'puzzle', '{
+  "words": ["cat", "dog", "bat", "rat"]
+}');
+
+-- Cartoons
+INSERT INTO content (title, description, type, url) VALUES
+('Titipo Titipo', 'A little train learning about the world.', 'cartoon', 'https://www.youtube.com/watch?v=xxxxxxxx'),
+('Pororo the Little Penguin', 'Adventures of a curious little penguin.', 'cartoon', 'https://www.youtube.com/watch?v=yyyyyyyy'),
+('Tayo the Little Bus', 'A friendly little bus exploring the city.', 'cartoon', 'https://www.youtube.com/watch?v=zzzzzzzz');

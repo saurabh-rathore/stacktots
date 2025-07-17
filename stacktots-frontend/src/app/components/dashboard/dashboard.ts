@@ -14,6 +14,9 @@ export class DashboardComponent implements OnInit {
   stories: any[] = [];
   games: any[] = [];
   videos: any[] = [];
+  quizzes: any[] = [];
+  puzzles: any[] = [];
+  cartoons: any[] = [];
 
   constructor(
     private contentService: ContentService,
@@ -26,6 +29,9 @@ export class DashboardComponent implements OnInit {
         this.stories = response.filter((item: any) => item.type === 'story');
         this.games = response.filter((item: any) => item.type === 'game');
         this.videos = response.filter((item: any) => item.type === 'video');
+        this.quizzes = response.filter((item: any) => item.type === 'quiz');
+        this.puzzles = response.filter((item: any) => item.type === 'puzzle');
+        this.cartoons = response.filter((item: any) => item.type === 'cartoon');
       },
       error: (error) => {
         console.error('Failed to get content', error);

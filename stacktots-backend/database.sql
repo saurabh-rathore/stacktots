@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS content (
   description TEXT,
   type VARCHAR(50) NOT NULL,
   url VARCHAR(255),
+  data JSON,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

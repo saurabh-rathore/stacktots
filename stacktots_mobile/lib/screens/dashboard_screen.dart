@@ -36,12 +36,18 @@ class _DashboardScreenState extends State<DashboardScreen> {
             final stories = content.where((item) => item['type'] == 'story').toList();
             final games = content.where((item) => item['type'] == 'game').toList();
             final videos = content.where((item) => item['type'] == 'video').toList();
+            final quizzes = content.where((item) => item['type'] == 'quiz').toList();
+            final puzzles = content.where((item) => item['type'] == 'puzzle').toList();
+            final cartoons = content.where((item) => item['type'] == 'cartoon').toList();
 
             return ListView(
               children: <Widget>[
                 _buildContentSection('Stories', stories),
                 _buildContentSection('Games', games),
                 _buildContentSection('Videos', videos),
+                _buildContentSection('Quizzes', quizzes),
+                _buildContentSection('Puzzles', puzzles),
+                _buildContentSection('Cartoons', cartoons),
               ],
             );
           } else if (snapshot.hasError) {

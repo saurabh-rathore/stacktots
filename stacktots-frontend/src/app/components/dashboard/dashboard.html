@@ -28,4 +28,31 @@
       <p>{{ item.description }}</p>
     </div>
   </div>
+
+  <h3>Quizzes</h3>
+  <div class="content-grid">
+    <div *ngFor="let item of quizzes" class="content-card">
+      <h4>{{ item.title }}</h4>
+      <p>{{ item.description }}</p>
+    </div>
+  </div>
+
+  <h3>Puzzles</h3>
+  <div class="content-grid">
+    <div *ngFor="let item of puzzles" class="content-card">
+      <h4>{{ item.title }}</h4>
+      <p>{{ item.description }}</p>
+    </div>
+  </div>
+
+  <h3>Cartoons</h3>
+  <div class="content-grid">
+    <div *ngFor="let item of cartoons" class="content-card">
+      <a [href]="item.url" target="_blank">
+        <img [src]="'https://img.youtube.com/vi/' + item.url.split('v=')[1] + '/0.jpg'" alt="{{ item.title }}">
+        <h4>{{ item.title }}</h4>
+        <p>{{ item.description }}</p>
+      </a>
+    </div>
+  </div>
 </div>
