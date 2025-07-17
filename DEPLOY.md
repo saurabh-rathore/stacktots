@@ -270,7 +270,30 @@ You can use GitHub Actions to automate the testing and deployment process.
           docker-compose up -d --no-deps backend frontend
     ```
 
-## 7. (Optional) Using Docker
+## 7. Logging and Monitoring
+
+### 7.1. Backend Logging
+
+The backend uses Winston for logging. The logs are stored in the following files in the `stacktots-backend` directory:
+
+*   `error.log`: Contains only error logs.
+*   `combined.log`: Contains all logs.
+
+You can view the logs using the `tail` command:
+
+```bash
+tail -f stacktots-backend/combined.log
+```
+
+### 7.2. Frontend Error Tracking
+
+The frontend uses Sentry for error tracking. To set up Sentry, you need to:
+
+1.  Create a new project on [Sentry](https://sentry.io/).
+2.  Get your DSN from the project settings.
+3.  Replace the placeholder DSN in `stacktots-frontend/src/main.ts` with your actual DSN.
+
+## 8. (Optional) Using Docker
 
 You can also use Docker to containerize the frontend and backend applications.
 

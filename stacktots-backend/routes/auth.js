@@ -4,6 +4,7 @@ const db = require('../db');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
+const logger = require('../logger');
 const { sendVerificationEmail, sendPasswordResetEmail } = require('../email');
 const { body, validationResult } = require('express-validator');
 
@@ -33,12 +34,15 @@ router.post(
       [name, email, hash, verificationToken],
       async (err, result) => {
         if (err) {
-          return res.status(500).json({ error: err });
+          logger.error('Error registering user:', err);
+          return res.status(500).json({ error: 'Failed to register user' });
         }
         try {
           await sendVerificationEmail(email, verificationToken);
+          logger.info(`User ${email} registered successfully.`);
           res.json({ message: 'Registration successful. Please check your email to verify your account.' });
         } catch (error) {
+          logger.error('Error sending verification email:', error);
           res.status(500).json({ error: 'Failed to send verification email' });
         }
       }
@@ -176,8 +180,10 @@ router.post(
       }
       if (isMatch) {
         const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        logger.info(`User ${email} logged in successfully.`);
         res.json({ token });
       } else {
+        logger.warn(`Failed login attempt for user ${email}.`);
         res.status(401).json({ message: 'Invalid credentials' });
       }
     });

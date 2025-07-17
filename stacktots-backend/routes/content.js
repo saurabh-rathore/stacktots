@@ -3,12 +3,14 @@ const router = express.Router();
 const db = require('../db');
 const verifyToken = require('../middleware/verifyToken');
 const cache = require('../middleware/cache');
+const logger = require('../logger');
 
 // Get all content
 router.get('/', verifyToken, cache, (req, res) => {
   db.query('SELECT * FROM content', (err, results) => {
     if (err) {
-      return res.status(500).json({ error: err });
+      logger.error('Error getting content:', err);
+      return res.status(500).json({ error: 'Failed to get content' });
     }
     res.json(results);
   });
