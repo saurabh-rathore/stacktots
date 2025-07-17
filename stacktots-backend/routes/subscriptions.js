@@ -3,9 +3,10 @@ const router = express.Router();
 const db = require('../db');
 const verifyToken = require('../middleware/verifyToken');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const cache = require('../middleware/cache');
 
 // Get all subscription plans
-router.get('/plans', verifyToken, (req, res) => {
+router.get('/plans', verifyToken, cache, (req, res) => {
   db.query('SELECT * FROM subscription_plans', (err, results) => {
     if (err) {
       return res.status(500).json({ error: err });

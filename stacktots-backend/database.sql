@@ -12,7 +12,8 @@ CREATE TABLE IF NOT EXISTS users (
   verification_token VARCHAR(255),
   password_reset_token VARCHAR(255),
   password_reset_expires BIGINT,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  INDEX email_index (email)
 );
 
 CREATE TABLE IF NOT EXISTS content (
@@ -22,7 +23,8 @@ CREATE TABLE IF NOT EXISTS content (
   type VARCHAR(50) NOT NULL,
   url VARCHAR(255),
   data JSON,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  INDEX type_index (type)
 );
 
 CREATE TABLE IF NOT EXISTS parental_controls (
@@ -60,5 +62,7 @@ CREATE TABLE IF NOT EXISTS subscriptions (
   end_date TIMESTAMP NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (user_id) REFERENCES users(id),
-  FOREIGN KEY (plan_id) REFERENCES subscription_plans(id)
+  FOREIGN KEY (plan_id) REFERENCES subscription_plans(id),
+  INDEX user_id_index (user_id),
+  INDEX status_index (status)
 );

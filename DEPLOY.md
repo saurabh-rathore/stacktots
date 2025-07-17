@@ -169,7 +169,55 @@ pm2 start index.js --name stacktots-backend
 
 The Flutter mobile app can be built for Android and iOS by following the official Flutter documentation. You will need to replace the `localhost` API URL in the app with the public IP address or domain name of your EC2 instance.
 
-## 4. (Optional) Using Docker
+## 4. Load Balancing with Nginx
+
+To handle a high volume of traffic, you can set up a load balancer to distribute requests across multiple instances of the backend server.
+
+1.  Start multiple instances of the backend server on different ports:
+
+    ```bash
+    pm2 start index.js --name stacktots-backend-1 -- -p 3001
+    pm2 start index.js --name stacktots-backend-2 -- -p 3002
+    ```
+
+2.  Update the Nginx configuration to include the upstream servers:
+
+    ```nginx
+    upstream backend {
+        server localhost:3001;
+        server localhost:3002;
+    }
+
+    server {
+        listen 80;
+        server_name your-domain.com;
+
+        root /path/to/your/stacktots-frontend/dist/stacktots-frontend/browser;
+        index index.html;
+
+        location / {
+            try_files $uri $uri/ /index.html;
+        }
+
+        location /api {
+            proxy_pass http://backend;
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection 'upgrade';
+            proxy_set_header Host $host;
+            proxy_cache_bypass $http_upgrade;
+        }
+    }
+    ```
+
+3.  Test the Nginx configuration and restart the service:
+
+    ```bash
+    sudo nginx -t
+    sudo systemctl restart nginx
+    ```
+
+## 5. (Optional) Using Docker
 
 You can also use Docker to containerize the frontend and backend applications.
 
