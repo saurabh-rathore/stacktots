@@ -11,6 +11,9 @@ import { ConfirmEmailComponent } from './components/confirm-email/confirm-email.
 import { EmailVerifiedComponent } from './components/email-verified/email-verified.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { QuizComponent } from './components/quiz/quiz.component';
+import { PuzzleComponent } from './components/puzzle/puzzle.component';
+import { PdfViewerComponent } from './components/pdf-viewer/pdf-viewer.component';
 
 export const routes: Routes = [
     { path: '', component: LandingComponent },
@@ -24,5 +27,8 @@ export const routes: Routes = [
     { path: 'confirm-email', component: ConfirmEmailComponent },
     { path: 'verify-email', component: EmailVerifiedComponent },
     { path: 'forgot-password', component: ForgotPasswordComponent },
-    { path: 'reset-password', component: ResetPasswordComponent }
+    { path: 'reset-password', component: ResetPasswordComponent },
+    { path: 'quiz/:id', component: QuizComponent },
+    { path: 'puzzle/:id', component: PuzzleComponent },
+    { path: 'pdf-viewer', component: PdfViewerComponent }
 ];

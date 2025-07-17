@@ -1,0 +1,20 @@
+<div class="quiz-container" *ngIf="quiz">
+  <h2>{{ quiz.title }}</h2>
+
+  <div *ngIf="!quizFinished">
+    <h3>{{ quiz.data.questions[currentQuestionIndex].question }}</h3>
+    <ul>
+      <li *ngFor="let option of quiz.data.questions[currentQuestionIndex].options"
+          (click)="selectAnswer(option)"
+          [class.selected]="option === selectedAnswer">
+        {{ option }}
+      </li>
+    </ul>
+    <button (click)="nextQuestion()" [disabled]="!selectedAnswer">Next</button>
+  </div>
+
+  <div *ngIf="quizFinished">
+    <h3>Quiz Finished!</h3>
+    <p>Your score: {{ score }} / {{ quiz.data.questions.length }}</p>
+  </div>
+</div>

@@ -81,16 +81,29 @@ class _DashboardScreenState extends State<DashboardScreen> {
             itemCount: content.length,
             itemBuilder: (context, index) {
               final item = content[index];
-              return Card(
-                child: Column(
-                  children: <Widget>[
-                    Image.network(item['url'], height: 100),
-                    Text(item['title']),
-                    ElevatedButton(
-                      onPressed: () => _listen(item['id']),
-                      child: const Text('Listen'),
-                    ),
-                  ],
+              return GestureDetector(
+                onTap: () {
+                  if (item['type'] == 'quiz') {
+                    Navigator.pushNamed(context, '/quiz', arguments: {'id': item['id']});
+                  } else if (item['type'] == 'puzzle') {
+                    Navigator.pushNamed(context, '/puzzle', arguments: {'id': item['id']});
+                  } else if (item['type'] == 'story' || item['type'] == 'rhyme') {
+                    Navigator.pushNamed(context, '/pdf-viewer', arguments: {'url': item['url']});
+                  }
+                },
+                child: Card(
+                  child: Column(
+                    children: <Widget>[
+                      if (item['url'] != null)
+                        Image.network(item['url'], height: 100),
+                      Text(item['title']),
+                      if (item['type'] == 'story' || item['type'] == 'rhyme')
+                        ElevatedButton(
+                          onPressed: () => _listen(item['id']),
+                          child: const Text('Listen'),
+                        ),
+                    ],
+                  ),
                 ),
               );
             },

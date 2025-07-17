@@ -3,7 +3,7 @@
 
   <h3>Stories</h3>
   <div class="content-grid">
-    <div *ngFor="let item of stories" class="content-card">
+    <div *ngFor="let item of stories" class="content-card" [routerLink]="['/pdf-viewer']" [queryParams]="{ url: item.url }">
       <img [src]="item.url" alt="{{ item.title }}">
       <h4>{{ item.title }}</h4>
       <p>{{ item.description }}</p>
@@ -31,7 +31,7 @@
 
   <h3>Quizzes</h3>
   <div class="content-grid">
-    <div *ngFor="let item of quizzes" class="content-card">
+    <div *ngFor="let item of quizzes" class="content-card" [routerLink]="['/quiz', item.id]">
       <h4>{{ item.title }}</h4>
       <p>{{ item.description }}</p>
     </div>
@@ -39,7 +39,7 @@
 
   <h3>Puzzles</h3>
   <div class="content-grid">
-    <div *ngFor="let item of puzzles" class="content-card">
+    <div *ngFor="let item of puzzles" class="content-card" [routerLink]="['/puzzle', item.id]">
       <h4>{{ item.title }}</h4>
       <p>{{ item.description }}</p>
     </div>
