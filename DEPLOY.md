@@ -242,7 +242,35 @@ It is highly recommended to use HTTPS to encrypt the traffic between the client 
     sudo certbot renew --dry-run
     ```
 
-## 6. (Optional) Using Docker
+## 6. CI/CD with GitHub Actions
+
+You can use GitHub Actions to automate the testing and deployment process.
+
+1.  **Set up secrets:** In your GitHub repository settings, go to "Secrets" and add the following secrets:
+    *   `DOCKERHUB_USERNAME`: Your Docker Hub username.
+    *   `DOCKERHUB_TOKEN`: Your Docker Hub access token.
+    *   `EC2_HOST`: The public IP address of your EC2 instance.
+    *   `EC2_USERNAME`: The username for your EC2 instance (e.g., `ubuntu`).
+    *   `EC2_KEY`: Your private SSH key for the EC2 instance.
+
+2.  **Create workflow files:** Create the `.github/workflows/backend.yml` and `.github/workflows/frontend.yml` files as described in the previous steps.
+
+3.  **Update the workflow files:** To automatically deploy the new images to your EC2 instance, you can add the following steps to the end of your workflow files:
+
+    ```yaml
+    - name: Deploy to EC2
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ${{ secrets.EC2_USERNAME }}
+        key: ${{ secrets.EC2_KEY }}
+        script: |
+          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/stacktots-backend:latest
+          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/stacktots-frontend:latest
+          docker-compose up -d --no-deps backend frontend
+    ```
+
+## 7. (Optional) Using Docker
 
 You can also use Docker to containerize the frontend and backend applications.
 
