@@ -39,6 +39,7 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
+            "outputPath": "dist/stacktots-frontend",
             "browser": "src/main.ts",
             "polyfills": [
               "zone.js"
