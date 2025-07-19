@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-confirm-email',
-  templateUrl: './confirm-email.html',
-  styleUrls: ['./confirm-email.scss'],
+  templateUrl: './confirm-email.component.html',
+  styleUrls: ['./confirm-email.component.scss'],
   standalone: true
 })
 export class ConfirmEmailComponent { }

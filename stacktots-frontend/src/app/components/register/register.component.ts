@@ -5,8 +5,8 @@ import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-register',
-  templateUrl: './register.html',
-  styleUrls: ['./register.scss'],
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.scss'],
   standalone: true,
   imports: [ReactiveFormsModule]
 })

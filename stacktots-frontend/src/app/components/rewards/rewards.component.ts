@@ -4,8 +4,8 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-rewards',
-  templateUrl: './rewards.html',
-  styleUrls: ['./rewards.scss'],
+  templateUrl: './rewards.component.html',
+  styleUrls: ['./rewards.component.scss'],
   standalone: true,
   imports: [CommonModule]
 })

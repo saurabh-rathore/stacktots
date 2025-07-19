@@ -5,8 +5,8 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-parental-dashboard',
-  templateUrl: './parental-dashboard.html',
-  styleUrls: ['./parental-dashboard.scss'],
+  templateUrl: './parental-dashboard.component.html',
+  styleUrls: ['./parental-dashboard.component.scss'],
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule]
 })

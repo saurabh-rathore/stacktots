@@ -6,8 +6,8 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-reset-password',
-  templateUrl: './reset-password.html',
-  styleUrls: ['./reset-password.scss'],
+  templateUrl: './reset-password.component.html',
+  styleUrls: ['./reset-password.component.scss'],
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule]
 })

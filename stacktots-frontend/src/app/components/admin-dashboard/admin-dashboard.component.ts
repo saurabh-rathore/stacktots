@@ -5,8 +5,8 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 
 @Component({
   selector: 'app-admin-dashboard',
-  templateUrl: './admin-dashboard.html',
-  styleUrls: ['./admin-dashboard.scss'],
+  templateUrl: './admin-dashboard.component.html',
+  styleUrls: ['./admin-dashboard.component.scss'],
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule]
 })

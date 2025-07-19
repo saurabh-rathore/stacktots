@@ -1,5 +1,6 @@
 <div class="pdf-viewer-container">
-  <pdf-viewer [src]="pdfSrc"
+  <pdf-viewer *ngIf="pdfSrc"
+              [src]="pdfSrc"
               [render-text]="true"
               style="display: block;"></pdf-viewer>
 </div>

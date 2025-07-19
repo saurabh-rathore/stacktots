@@ -5,8 +5,8 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-quiz',
-  templateUrl: './quiz.html',
-  styleUrls: ['./quiz.scss'],
+  templateUrl: './quiz.component.html',
+  styleUrls: ['./quiz.component.scss'],
   standalone: true,
   imports: [CommonModule]
 })

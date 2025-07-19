@@ -5,8 +5,8 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-email-verified',
-  templateUrl: './email-verified.html',
-  styleUrls: ['./email-verified.scss'],
+  templateUrl: './email-verified.component.html',
+  styleUrls: ['./email-verified.component.scss'],
   standalone: true,
   imports: [CommonModule]
 })

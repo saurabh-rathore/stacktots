@@ -6,8 +6,8 @@ declare var stripe: any;
 
 @Component({
   selector: 'app-subscription',
-  templateUrl: './subscription.html',
-  styleUrls: ['./subscription.scss'],
+  templateUrl: './subscription.component.html',
+  styleUrls: ['./subscription.component.scss'],
   standalone: true,
   imports: [CommonModule]
 })
